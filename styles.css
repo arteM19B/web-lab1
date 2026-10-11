@@ -1,0 +1,85 @@
+header {
+    font-family: monospace;
+    color: black;
+    font-size: 20px;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #b3e0fa;
+    color: black;
+    font-size: 18px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+main > section {
+    background-color: #d9b1f1;
+    padding: 20px;
+    border: 1px solid gray;
+}
+
+#coordinate-plane {
+    border: 1px solid black;
+    background-color: white;
+}
+
+form input {
+    margin: 2%;
+}
+
+form input[type="text"] {
+    padding: 1%;
+    border: 1px solid black;
+    width: 30px;
+}
+
+form button:hover {
+    background-color: #69b4f1;
+}
+
+form input[type="text"]:focus {
+    outline: 2px solid #003dff;
+}
+
+form input[type="text"]:invalid {
+    border-color: #ff0000;
+}
+
+label[for="coordinate-y"]::after {
+    content: " *";
+    color: red;
+}
+
+p[id="about-req-field"] {
+    color: red;
+    font-size: 15px;
+}
+
+form button {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 2%;
+    margin: 2%;
+    border: 1px solid black;
+    background-color: white;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 20px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+th {
+    background-color: #84d2ea;
+}
