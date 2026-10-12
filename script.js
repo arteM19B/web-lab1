@@ -56,3 +56,106 @@ form.addEventListener("submit", (event) => {
     }
 });
 
+
+// отрисовка координатной плоскости и фигуры
+const canvas = document.getElementById("coordinate-plane");
+const context = canvas.getContext("2d");
+context.strokeStyle = "black";
+context.lineWidth = 2;
+const centerWidth = canvas.width / 2;
+const centerHeight = canvas.height / 2;
+const canvasR = 140;
+
+context.fillStyle = "blue";
+context.fillRect(centerWidth - canvasR, centerHeight - canvasR / 2, canvasR, canvasR / 2);
+
+context.beginPath();
+context.moveTo(centerWidth, centerHeight);
+context.lineTo(centerWidth, centerHeight + canvasR / 2);
+context.lineTo(centerWidth + canvasR, centerHeight);
+context.closePath();
+context.fill();
+
+context.beginPath();
+context.moveTo(centerWidth, centerHeight);
+context.arc(centerWidth, centerHeight, canvasR / 2, Math.PI, Math.PI / 2, true);
+context.closePath();
+context.fill();
+
+context.beginPath();
+context.moveTo(10, centerHeight);
+context.lineTo(canvas.width - 10, centerHeight);
+context.stroke();
+
+context.beginPath();
+context.moveTo(centerWidth, 10);
+context.lineTo(centerWidth, canvas.height - 10);
+context.stroke();
+
+context.beginPath();
+context.moveTo(centerWidth, 10);
+context.lineTo(centerWidth + 5, 20);
+context.moveTo(centerWidth, 10);
+context.lineTo(centerWidth - 5, 20);
+context.stroke();
+
+context.beginPath();
+context.moveTo(canvas.width - 10, centerHeight);
+context.lineTo(canvas.width - 20, centerHeight + 5);
+context.moveTo(canvas.width - 10, centerHeight);
+context.lineTo(canvas.width - 20, centerHeight - 5);
+context.stroke();
+
+context.font = "20px sans-serif";
+context.fillStyle = "black";
+context.fillText("y", centerWidth + 10, 20);
+context.fillText("x", canvas.width - 20, centerHeight - 10);
+
+context.beginPath();
+context.moveTo(centerWidth - canvasR, centerHeight - 3);
+context.lineTo(centerWidth - canvasR, centerHeight + 3);
+context.moveTo(centerWidth - (canvasR / 2), centerHeight - 3);
+context.lineTo(centerWidth - (canvasR / 2), centerHeight + 3);
+context.stroke();
+
+context.beginPath();
+context.moveTo(centerWidth + canvasR, centerHeight - 3);
+context.lineTo(centerWidth + canvasR, centerHeight + 3);
+context.moveTo(centerWidth + (canvasR / 2), centerHeight - 3);
+context.lineTo(centerWidth + (canvasR / 2), centerHeight + 3);
+context.stroke();
+
+context.beginPath();
+context.moveTo(centerWidth + 3, centerHeight + canvasR);
+context.lineTo(centerWidth - 3, centerHeight + canvasR);
+context.moveTo(centerWidth + 3, centerHeight + (canvasR / 2));
+context.lineTo(centerWidth - 3, centerHeight + (canvasR / 2));
+context.stroke();
+
+context.beginPath();
+context.moveTo(centerWidth + 3, centerHeight - canvasR);
+context.lineTo(centerWidth - 3, centerHeight - canvasR);
+context.moveTo(centerWidth + 3, centerHeight - (canvasR / 2));
+context.lineTo(centerWidth - 3, centerHeight - (canvasR / 2));
+context.stroke();
+
+context.textAlign = "left";
+context.textBaseline = "middle";
+context.fillText("R", centerWidth + 10, centerHeight - canvasR);
+context.fillText("R/2", centerWidth + 10, centerHeight - canvasR / 2);
+context.fillText("-R", centerWidth + 10, centerHeight + canvasR);
+context.fillText("-R/2", centerWidth + 10, centerHeight + canvasR / 2);
+
+context.textAlign = "center";
+context.textBaseline = "alphabetic";
+context.fillText("-R", centerWidth - canvasR, centerHeight - 10);
+context.fillText("-R/2", centerWidth - canvasR / 2, centerHeight - 10);
+context.fillText("R", centerWidth + canvasR, centerHeight - 10);
+context.fillText("R/2", centerWidth + canvasR / 2, centerHeight - 10);
+
+
+
+
+
+
+
