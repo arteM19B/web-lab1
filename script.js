@@ -51,10 +51,72 @@ form.addEventListener("submit", (event) => {
                 }
                 xNumbers.push(newX);
             }
+            const createdAt = Date.now();
+            for (const x of xNumbers) {
+                const logicalResult = isInside(x, yInputNumber, selectedR);
+                const resultObject = {
+                    xCurrent: x,
+                    yCurrent: yInputNumber,
+                    rCurrent: selectedR,
+                    logicalResult: logicalResult,
+                    createdTime: createdAt
+                };
+                rowAppend(resultObject);
+            }
 
         }
     }
 });
+
+
+// добавление данных в таблицу
+const tableElement = document.getElementById("history-table");
+function rowAppend(checkObject) {
+    const tableRow = document.createElement("tr");
+    const tableX = document.createElement("td");
+    const tableY = document.createElement("td");
+    const tableR = document.createElement("td");
+    const tableCheck = document.createElement("td");
+    const tableDate = document.createElement("td");
+    tableX.textContent = checkObject.xCurrent;
+    tableY.textContent = checkObject.yCurrent;
+    tableR.textContent = checkObject.rCurrent;
+    if (checkObject.logicalResult) {
+        tableCheck.textContent = "Попадание";
+    } else {
+        tableCheck.textContent = "Промах";
+    }
+    tableDate.textContent = formatDateTime(checkObject.createdTime);
+    tableRow.append(tableX);
+    tableRow.append(tableY);
+    tableRow.append(tableR);
+    tableRow.append(tableCheck);
+    tableRow.append(tableDate);
+    tableElement.append(tableRow);
+}
+
+function isInsideRectangle(x, y, r) {
+    return (y <= r / 2 && y >= 0) && (x >= -r && x <= 0);
+}
+
+function isInsideCircle(x, y, r) {
+    return (x ** 2 + y ** 2 <= (r / 2) ** 2) && x <= 0 && y <= 0;
+}
+
+function isInsideTriangle(x, y, r) {
+    return y <= 0 && (y >= 0.5 * x - r / 2) && x >= 0;
+}
+
+// проверка попадания точки
+function isInside(x, y, r) {
+    return isInsideRectangle(x, y, r) || isInsideCircle(x, y, r) || isInsideTriangle(x, y, r);
+}
+
+// преобразование временной метки в стандартное представление
+function formatDateTime(createdAt) {
+    const dateForOutput = new Date(createdAt);
+    return dateForOutput.toLocaleString("ru-RU");
+}
 
 
 // отрисовка координатной плоскости и фигуры
