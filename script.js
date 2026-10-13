@@ -5,6 +5,7 @@ const availableR = [1, 1.5, 2, 2.5, 3];
 const availableX = [-5, -4, -3, -2, -1, 0, 1, 2, 3];
 const statusMessage = document.getElementById("status-messages");
 const ruleTextY = new RegExp("^" + yInput.pattern + "$");
+const historyArray = [];
 
 const rInput = document.querySelectorAll(
     'fieldset[id="coordinate-r"] button'
@@ -61,13 +62,20 @@ form.addEventListener("submit", (event) => {
                     logicalResult: logicalResult,
                     createdTime: createdAt
                 };
+                historyArray.push(resultObject);
                 rowAppend(resultObject);
             }
-
+            try {
+                const historyArrayText = JSON.stringify(historyArray);
+                localStorage.setItem("history", historyArrayText);
+            } catch (error) {
+                console.error(error);
+                statusMessage.textContent = "Результаты отображены, но сохранить" +
+                    " историю не удалось";
+            }
         }
     }
 });
-
 
 // добавление данных в таблицу
 const tableElement = document.getElementById("history-table");
@@ -93,6 +101,42 @@ function rowAppend(checkObject) {
     tableRow.append(tableCheck);
     tableRow.append(tableDate);
     tableElement.append(tableRow);
+}
+
+// восстановление данных из localStorage
+try {
+    const savedHistory = localStorage.getItem("history");
+    if (savedHistory !== null) {
+        const historyData = JSON.parse(savedHistory);
+        if (Array.isArray(historyData)) {
+            for (const historyObject of historyData) {
+                if (checkSavedObject(historyObject)) {
+                    historyArray.push(historyObject);
+                    rowAppend(historyObject);
+                } else {
+                    statusMessage.textContent = "Часть истории не удалось восстановить";
+                }
+            }
+        } else {
+            statusMessage.textContent = "Сохранённая история имеет неверный формат";
+        }
+    }
+} catch (error) {
+    statusMessage.textContent = "Не удалось восстановить историю";
+    console.error(error);
+}
+
+// проверка сохраненного объекта для восстановления
+function checkSavedObject(savedObj) {
+    if (savedObj === null || typeof savedObj !== "object") {
+        return false;
+    }
+    return availableX.includes(savedObj.xCurrent)
+        && availableR.includes(savedObj.rCurrent)
+        && (Number.isFinite(savedObj.createdTime) && !isNaN((new Date(savedObj.createdTime)).getTime()))
+        && (savedObj.yCurrent < 5 && savedObj.yCurrent > -3 && Number.isFinite(savedObj.yCurrent))
+        && typeof savedObj.logicalResult === "boolean";
+
 }
 
 function isInsideRectangle(x, y, r) {
