@@ -83,3 +83,8 @@ td {
 th {
     background-color: #84d2ea;
 }
+
+#coordinate-r button.selected-r {
+    background-color: #063442;
+    color: white;
+}

@@ -11,9 +11,16 @@ const rInput = document.querySelectorAll(
     'fieldset[id="coordinate-r"] button'
 );
 
+// нажатие на кнопку R
 for (const rButton of rInput) {
     rButton.addEventListener("click", () => {
+        for (const button of rInput) {
+            button.classList.remove("selected-r");
+            button.setAttribute("aria-pressed", "false");
+        }
         selectedR = Number(rButton.value);
+        rButton.classList.add("selected-r");
+        rButton.setAttribute("aria-pressed", "true");
     });
 }
 
