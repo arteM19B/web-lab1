@@ -55,6 +55,11 @@ label[for="coordinate-y"]::after {
     color: red;
 }
 
+p[id="y-description"] {
+    font-size: 15px;
+    
+}
+
 p[id="about-req-field"] {
     color: red;
     font-size: 15px;
