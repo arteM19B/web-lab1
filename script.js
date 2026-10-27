@@ -179,7 +179,7 @@ const centerWidth = canvas.width / 2;
 const centerHeight = canvas.height / 2;
 const canvasR = 140;
 
-context.fillStyle = "blue";
+context.fillStyle = "#466ce4";
 context.fillRect(centerWidth - canvasR, centerHeight - canvasR / 2, canvasR, canvasR / 2);
 
 context.beginPath();
